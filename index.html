@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP-Flow - 원스톱 IP 비즈니스 인프라</title>
+    
+    <!-- Pretendard Web Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Custom Theme Config & Base Styles -->
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #2563EB;
+            --color-secondary: #1E293B;
+            --color-background: #F8FAFC;
+            --color-text-main: #0F172A;
+            --font-sans: "Pretendard", sans-serif;
+        }
+
+        body {
+            font-family: theme('fontFamily.sans');
+            background-color: theme('colors.background');
+            color: theme('colors.text-main');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col min-h-screen">
+
+    <!-- 1. Header (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- 로고 -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-2xl font-bold text-secondary tracking-tight">IP-Flow</span>
+                </div>
+                
+                <!-- 데스크톱 메뉴 -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#problem" class="text-gray-600 hover:text-primary font-medium transition-colors">서비스 소개</a>
+                    <a href="#features" class="text-gray-600 hover:text-primary font-medium transition-colors">주요 기능</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-primary font-medium transition-colors">이용 흐름</a>
+                    <a href="#cta" class="text-gray-600 hover:text-primary font-medium transition-colors">얼리버드 혜택</a>
+                </nav>
+
+                <!-- 데스크톱 CTA -->
+                <div class="hidden md:flex items-center">
+                    <a href="#cta" class="bg-primary hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg">
+                        얼리버드 신청
+                    </a>
+                </div>
+
+                <!-- 모바일 메뉴 버튼 -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-secondary focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 모바일 드롭다운 메뉴 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#problem" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">서비스 소개</a>
+                <a href="#features" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">주요 기능</a>
+                <a href="#how-it-works" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">이용 흐름</a>
+                <a href="#cta" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">얼리버드 혜택</a>
+                <a href="#cta" class="mobile-link mt-4 block w-full text-center bg-primary text-white px-4 py-3 rounded-lg font-semibold shadow-md">얼리버드 신청</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- 2. Hero -->
+        <section class="relative bg-white pt-20 pb-24 lg:pt-32 lg:pb-36 overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-10">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80" alt="Tech Abstract Background" class="w-full h-full object-cover">
+            </div>
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <h1 class="text-[36px] md:text-[48px] lg:text-[64px] font-extrabold text-secondary leading-tight md:leading-snug mb-6 tracking-tight">
+                    머릿속 아이디어를 특허로,<br class="hidden md:block">
+                    특허를 수익으로 만드는 단 하나의 흐름.
+                </h1>
+                <p class="mt-4 text-[16px] md:text-[18px] text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    AI로 정교한 IP 초안을 신속하게 생성하고, 전문 변리사의 검토를 거쳐 출원 연계부터 거래·펀딩까지 막힘없이 연결합니다. 분절되고 막막했던 IP 권리화와 사업화 과정을 이제 하나의 고속도로로 통과하세요.
+                </p>
+                <div class="mt-10 flex flex-col items-center gap-4 w-full px-4">
+                    <a href="#cta" class="inline-flex justify-center items-center w-full md:w-auto px-8 py-4 text-lg font-bold rounded-xl text-white bg-primary hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                        무료로 얼리버드 참여하고 아이디어 진단받기 →
+                    </a>
+                    <p class="text-sm text-gray-500 font-medium bg-gray-100 px-4 py-2 rounded-full inline-block">
+                        “현재는 초기 검증 단계로, 첫 빌드 참여 멤버에게만 한정 혜택을 제공합니다.”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Problem -->
+        <section id="problem" class="py-24 bg-background">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[28px] md:text-[40px] font-bold text-secondary tracking-tight">
+                        좋은 아이디어가 왜 비즈니스로 이어지지 못하고 멈춰 서 있을까요?
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+                        <div class="h-48 rounded-xl overflow-hidden mb-6">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="복잡한 서류 작성" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4 leading-snug">"특허사무소 가기 전, 정리부터 막막합니다."</h3>
+                        <p class="text-gray-600 text-base leading-relaxed">
+                            발명의 구조, 핵심 구성요소, 청구항을 정리하는 방법을 몰라 상담 준비 단계에서만 수 주일이 낭비됩니다. 말뿐인 아이디어는 권리화 검토조차 어렵습니다.
+                        </p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+                        <div class="h-48 rounded-xl overflow-hidden mb-6">
+                            <img src="https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?auto=format&fit=crop&w=800&q=80" alt="잠자는 특허 자산" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4 leading-snug">"수백만 원 들여 등록한 특허, 그냥 잠자고 있습니다."</h3>
+                        <p class="text-gray-600 text-base leading-relaxed">
+                            특허를 확보해도 이를 판매하거나 라이선싱, 크라우드 펀딩으로 연결해 줄 비즈니스 브릿지가 없어 소중한 기술 자산이 사장됩니다.
+                        </p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+                        <div class="h-48 rounded-xl overflow-hidden mb-6">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="분리된 업무" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4 leading-snug">"권리화 따로, 사업화 준비 따로."</h3>
+                        <p class="text-gray-600 text-base leading-relaxed">
+                            명세서 작성, 변리사 매칭, 기술 소개서 작성, 투자처 발굴이 모두 쪼개져 있어 창업자의 시간과 비용이 이중으로 소모됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Solution -->
+        <section class="py-24 bg-secondary text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80" alt="Pipeline Flow" class="w-full h-full object-cover mix-blend-overlay">
+            </div>
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-4xl mx-auto">
+                    <span class="text-primary font-bold tracking-widest text-sm uppercase mb-4 block">THE ONE-STOP IP PIPELINE</span>
+                    <h2 class="text-[32px] md:text-[48px] font-extrabold mb-8 leading-tight">
+                        작성부터 사업화까지 끊김 없는<br class="hidden md:block">
+                        원스톱 IP 비즈니스 인프라, IP-Flow
+                    </h2>
+                    <p class="text-[16px] md:text-[18px] text-gray-300 leading-relaxed">
+                        IP-Flow는 기술 장벽과 절차의 복잡함을 완전히 걷어냅니다. 제휴 AI Agent가 구두 설명을 검토 가능한 문서로 자동 변환하고, 등록 변리사가 법적 권리 범위를 정밀 진단하며, 검증된 IP는 즉시 마켓플레이스 등록 및 사업화 자료(IR/펀딩) 생성으로 이어집니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Key Features -->
+        <section id="features" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[28px] md:text-[40px] font-bold text-secondary tracking-tight">
+                        아이디어를 자산으로 만드는 4가지 핵심 엔진
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Feature 1 -->
+                    <div class="group border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 bg-background flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-2/5 h-48 md:h-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80" alt="AI 기반 엔진" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="w-full md:w-3/5 p-8">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary font-bold">01</div>
+                            <h3 class="text-xl font-bold text-secondary mb-3">기능 1: AI 기반 IP 초안 엔진</h3>
+                            <p class="text-gray-600 text-base leading-relaxed">
+                                간단한 설명만으로 특허/실용신안 명세서, 청구항, 도면 설명, 선행기술 대비표 초안을 즉시 구축합니다.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="group border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 bg-background flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-2/5 h-48 md:h-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80" alt="변리사 매칭" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="w-full md:w-3/5 p-8">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary font-bold">02</div>
+                            <h3 class="text-xl font-bold text-secondary mb-3">기능 2: 전문 변리사 매칭 및 전략 자문</h3>
+                            <p class="text-gray-600 text-base leading-relaxed">
+                                플랫폼이 직접 대리하지 않고, 검증된 파트너 변리사를 연결하여 출원 가능성, 권리 범위 가이드, 선행기술 회피 전략을 안전하게 검토받도록 돕습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="group border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 bg-background flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-2/5 h-48 md:h-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80" alt="사업화 패키지" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="w-full md:w-3/5 p-8">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary font-bold">03</div>
+                            <h3 class="text-xl font-bold text-secondary mb-3">기능 3: 사업화 패키지 자동 팩킹(Packing)</h3>
+                            <p class="text-gray-600 text-base leading-relaxed">
+                                완성된 IP 명세서를 기반으로 시장 소구력이 있는 IP 요약서, 기술소개서(SMART), 크라우드펀딩 제안 자료를 자동 빌딩합니다.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="group border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 bg-background flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-2/5 h-48 md:h-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1560415755-bd80d06eda60?auto=format&fit=crop&w=600&q=80" alt="IP 마켓플레이스" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="w-full md:w-3/5 p-8">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary font-bold">04</div>
+                            <h3 class="text-xl font-bold text-secondary mb-3">기능 4: 수요 중심 IP 마켓플레이스</h3>
+                            <p class="text-gray-600 text-base leading-relaxed">
+                                제조사, 유통사, 대기업 등 실제 기술 수요자와 연결되는 입찰 마켓에 등록되어 라이선스 계약 및 거래 제안을 직접 수신합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. How It Works -->
+        <section id="how-it-works" class="py-24 bg-background">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[28px] md:text-[40px] font-bold text-secondary tracking-tight">
+                        단 3단계로 끝나는 IP 권리화 & 사업화
+                    </h2>
+                </div>
+                <!-- Timeline Container -->
+                <div class="relative flex flex-col md:flex-row justify-between items-start gap-12 md:gap-6">
+                    <!-- 연결선 (데스크톱) -->
+                    <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-1 bg-gray-200 z-0"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="relative z-10 flex-1 flex flex-col items-center text-center w-full">
+                        <div class="w-24 h-24 bg-white border-4 border-primary rounded-full flex items-center justify-center text-2xl font-bold text-primary mb-6 shadow-lg">
+                            01
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4">Step 01.<br>아이디어 입력 및 AI 초안 작성</h3>
+                        <p class="text-gray-600 text-base leading-relaxed px-4">
+                            일상 언어로 아이디어를 입력하면, 제휴 AI가 전문 특허 문서 규격에 맞춘 5종의 필수 초안을 즉시 생성합니다.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 flex-1 flex flex-col items-center text-center w-full">
+                        <div class="w-24 h-24 bg-white border-4 border-primary rounded-full flex items-center justify-center text-2xl font-bold text-primary mb-6 shadow-lg">
+                            02
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4">Step 02.<br>변리사 검토 및 출원 전략 연계</h3>
+                        <p class="text-gray-600 text-base leading-relaxed px-4">
+                            매칭된 등록 변리사가 초안을 정밀 검토하여 권리 범위를 조정하고, 안전한 정식 출원 단계로 바로 진입하도록 연계합니다.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10 flex-1 flex flex-col items-center text-center w-full">
+                        <div class="w-24 h-24 bg-white border-4 border-primary rounded-full flex items-center justify-center text-2xl font-bold text-primary mb-6 shadow-lg">
+                            03
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-4">Step 03.<br>비즈니스 패킹 및 마켓 런칭</h3>
+                        <p class="text-gray-600 text-base leading-relaxed px-4">
+                            빌딩된 IP를 바탕으로 사업 설명 자료가 자동 제작되며, 즉시 마켓에 노출되어 펀딩 유치 및 기술 거래 계약을 시작합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Target Customers -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[28px] md:text-[40px] font-bold text-secondary tracking-tight">
+                        이런 분들에게 IP-Flow가 확실한 이정표가 됩니다
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Persona 1 -->
+                    <div class="bg-background rounded-3xl p-8 border border-gray-100 flex flex-col items-center text-center">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80" alt="예비 창업자" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-white shadow-md">
+                        <h3 class="text-xl font-bold text-secondary mb-4">예비 창업자 및 초기 스타트업</h3>
+                        <blockquote class="text-gray-600 italic text-base leading-relaxed">
+                            “기술 중심 투자를 받기 위해 특허 확보가 시급하지만, 높은 비용과 작성 절차 때문에 진입조차 못 하고 있는 팀”
+                        </blockquote>
+                    </div>
+                    <!-- Persona 2 -->
+                    <div class="bg-background rounded-3xl p-8 border border-gray-100 flex flex-col items-center text-center">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=200&q=80" alt="개인 발명가" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-white shadow-md">
+                        <h3 class="text-xl font-bold text-secondary mb-4">개인 발명가 및 창작자</h3>
+                        <blockquote class="text-gray-600 italic text-base leading-relaxed">
+                            “기발한 아이디어를 특허청 서식으로 변환할 길을 모르고, 등록 이후의 실제 판로나 라이선싱 판매처가 막막한 분”
+                        </blockquote>
+                    </div>
+                    <!-- Persona 3 -->
+                    <div class="bg-background rounded-3xl p-8 border border-gray-100 flex flex-col items-center text-center">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" alt="중소기업" class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-white shadow-md">
+                        <h3 class="text-xl font-bold text-secondary mb-4">특허 관리 리소스가 부족한 중소기업</h3>
+                        <blockquote class="text-gray-600 italic text-base leading-relaxed">
+                            “신규 아이디어 검토 단계에서 외부 특허사무소와의 소통 비용을 줄이고, 빠르게 기술 자산화 가능성을 스크리닝하려는 기업”
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Benefits -->
+        <section class="py-24 bg-background overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[28px] md:text-[40px] font-bold text-secondary tracking-tight">
+                        IP-Flow와 함께하면 비즈니스의 속도가 달라집니다
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1 space-y-10">
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">1</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-secondary mb-3">효과 1: 특허사무소 소통 리소스 극대화</h3>
+                                <p class="text-gray-600 text-base leading-relaxed">
+                                    정리되지 않은 날것의 아이디어 대신 구조화된 AI 초안을 들고 변리사를 만나기 때문에, 미팅 횟수와 수수료 낭비 없이 정확한 출원 전략 수립이 가능합니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">2</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-secondary mb-3">효과 2: 방어막을 넘어선 '수익 자산화'의 실현</h3>
+                                <p class="text-gray-600 text-base leading-relaxed">
+                                    단순히 '보유'하는 것에 그쳤던 특허를 거래 가능한 스펙으로 자동 재가공하여, 시장에 매물로 내놓거나 크라우드 펀딩을 통해 즉각적인 현금 흐름을 창출합니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">3</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-secondary mb-3">효과 3: 원스톱 파이프라인을 통한 시장 진입 시간 단축</h3>
+                                <p class="text-gray-600 text-base leading-relaxed">
+                                    아이디어 기획부터 비즈니스 제안 자료 완성까지 걸리는 리드를 대폭 줄여, 경쟁사보다 한발 앞서 독점적 시장 지위를 선점할 수 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" alt="비즈니스 성장 그래프" class="rounded-3xl shadow-2xl w-full object-cover h-[400px] lg:h-[500px]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. CTA Form -->
+        <section id="cta" class="py-24 bg-primary text-white relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-10">
+                    <h2 class="text-[32px] md:text-[48px] font-extrabold mb-6 leading-tight">
+                        당신의 아이디어가<br>
+                        위대한 기술 자산이 되는 첫 걸음
+                    </h2>
+                    <p class="text-[16px] md:text-[18px] text-blue-100 max-w-2xl mx-auto leading-relaxed mb-6">
+                        지금 얼리버드로 신청하시면 베타 테스트 런칭 시 최우선 순위로 AI 초안 생성 기능 및 파트너 변리사 무료 매칭 상담 혜택을 제공합니다.
+                    </p>
+                    <div class="bg-blue-900/40 p-4 rounded-xl border border-blue-400/30 text-sm text-blue-100 italic">
+                        "IP-Flow는 현재 초기 검증 및 베타 테스팅 단계로, 첫 빌드 참여 멤버 및 얼리버드 참여자를 모집 중입니다. 소중한 피드백을 바탕으로 현업에 완벽히 작동하는 시스템으로 고도화해 나갈 예정입니다."
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-gray-800">
+                    <form id="earlybird-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">이름 / 기업명 *</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="홍길동 / (주)아이피플로우">
+                            </div>
+                            <div>
+                                <label for="contact" class="block text-sm font-semibold text-gray-700 mb-2">연락처 *</label>
+                                <input type="tel" id="contact" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="010-0000-0000">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">이메일 주소 *</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="email@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-4">현재 가장 필요한 지원 단계 *</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <input type="radio" name="support_stage" value="1" required class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                                    <span class="ml-3 text-gray-700 font-medium">AI 초안 작성 필요</span>
+                                </label>
+                                <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <input type="radio" name="support_stage" value="2" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                                    <span class="ml-3 text-gray-700 font-medium">변리사 검토 및 출원 준비</span>
+                                </label>
+                                <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <input type="radio" name="support_stage" value="3" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
+                                    <span class="ml-3 text-gray-700 font-medium">IP 거래 및 펀딩 연계</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- 개인정보처리방침 인라인 안내 -->
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <label class="flex items-start">
+                                <input type="checkbox" id="privacy_agree" required class="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                                <div class="ml-3 text-sm text-gray-600">
+                                    <span class="font-semibold text-gray-800">[필수] 개인정보 수집 및 이용 동의</span><br>
+                                    IP-Flow는 얼리버드 혜택 안내 및 서비스 관련 안내를 위해 최소한의 개인정보(이름/기업명, 연락처, 이메일)를 수집하며, 서비스 정식 런칭 후 1년 내 또는 목적 달성 시 즉시 파기합니다.
+                                </div>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary hover:bg-blue-700 text-white font-bold text-lg py-5 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                            얼리버드 혜택 신청하고 첫 빌더 참여하기 →
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 10. Footer -->
+    <footer class="bg-[#111827] text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 border-b border-gray-800 pb-8">
+                <div>
+                    <span class="text-2xl font-bold text-white tracking-tight block mb-2">IP-Flow</span>
+                    <p class="text-sm">IP-Flow Team (아이피플로우)</p>
+                    <p class="text-sm">contact@ipflow-temp.io (가칭)</p>
+                </div>
+            </div>
+            
+            <div class="text-sm text-gray-500 leading-relaxed mb-6">
+                <span class="font-semibold text-gray-300">[법적 면책 조항]</span><br>
+                IP-Flow는 직접적인 특허 출원 대리 행위 및 법률 대리 업무를 수행하지 않습니다. 플랫폼을 통해 연결된 등록 변리사가 별도의 독립적인 계약 관계 하에 적법하게 전문 대리 업무를 수행합니다.
+            </div>
+            
+            <div class="text-sm">
+                © 2026 IP-Flow. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript for Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 모바일 햄버거 메뉴 토글 로직
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const path = document.getElementById('menu-icon-path');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if(isMenuOpen) {
+                    menu.classList.remove('hidden');
+                    // 아이콘을 'X' 모양으로 변경
+                    path.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                } else {
+                    menu.classList.add('hidden');
+                    // 아이콘을 햄버거 모양으로 변경
+                    path.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                }
+            }
+
+            btn.addEventListener('click', toggleMenu);
+
+            // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if(isMenuOpen) toggleMenu();
+                });
+            });
+
+            // 폼 제출 이벤트 처리
+            const form = document.getElementById('earlybird-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // 실제 제출 로직 연동 부분 (API 등)
+                alert('얼리버드 신청이 완료되었습니다. 남겨주신 연락처로 곧 안내 드리겠습니다. 감사합니다!');
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
